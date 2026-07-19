@@ -1,67 +1,728 @@
+/*==================================================
+  ARMANDO'S BARBER
+  Premium Mobile Barber Website
+==================================================*/
+
+
+/*==============================
+ROOT
+==============================*/
+
 :root{
 
---black:#050505;
---dark:#111;
---white:#fff;
---yellow:#f5c518;
---grey:#aaa;
+    --black:#050505;
+    --dark:#0d0d0d;
+    --white:#ffffff;
+    --yellow:#f5c518;
+    --gray:#a7a7a7;
 
---heading:'Bebas Neue', sans-serif;
---body:'Montserrat', sans-serif;
+    --heading:'Bebas Neue', sans-serif;
+    --body:'Montserrat', sans-serif;
 
 }
+
 
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
+
+
+
+html{
+    scroll-behavior:smooth;
+}
+
 
 
 body{
 
-background:#050505;
-color:white;
-font-family:var(--body);
-overflow-x:hidden;
-padding-bottom:100px;
+    background:var(--black);
+    color:var(--white);
+    font-family:var(--body);
+    overflow-x:hidden;
+    padding-bottom:90px;
+
+}
+
+
+
+/*==============================
+HERO
+==============================*/
+
+
+.hero{
+
+    min-height:100vh;
+    padding:30px 22px;
+    position:relative;
+    overflow:hidden;
+
+}
+
+
+
+.hero::before{
+
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    background:var(--yellow);
+    filter:blur(140px);
+    opacity:.15;
+    top:-100px;
+    right:-120px;
+
+}
+
+
+
+/*==============================
+LOGO
+==============================*/
+
+
+.logo{
+
+    font-family:var(--heading);
+    font-size:42px;
+    letter-spacing:4px;
+    line-height:.8;
+    position:relative;
+    z-index:2;
+
+}
+
+
+
+.logo span{
+
+    display:block;
+    color:var(--yellow);
+    font-size:25px;
+    letter-spacing:8px;
+
+}
+
+
+
+/*==============================
+HERO CONTENT
+==============================*/
+
+
+.hero-content{
+
+    margin-top:55px;
+    position:relative;
+    z-index:2;
+
+}
+
+
+
+.tag{
+
+    color:var(--yellow);
+    font-size:12px;
+    letter-spacing:3px;
+    font-weight:700;
+    margin-bottom:20px;
+
+}
+
+
+
+.hero h1{
+
+    font-family:var(--heading);
+    font-size:70px;
+    line-height:.9;
+    letter-spacing:1px;
+
+}
+
+
+
+.hero h1 span{
+
+    color:var(--yellow);
+
+}
+
+
+
+.description{
+
+    color:#cccccc;
+    font-size:15px;
+    line-height:1.7;
+    margin:25px 0;
+    max-width:330px;
+
+}
+
+
+
+
+.booking-btn{
+
+
+    background:var(--yellow);
+    border:none;
+    padding:17px 25px;
+    border-radius:2px;
+
+    font-weight:800;
+    font-size:14px;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+
+.booking-btn:hover{
+
+    transform:translateY(-5px);
+    box-shadow:0 15px 30px rgba(245,197,24,.3);
+
+}
+
+
+
+/*==============================
+HERO IMAGE
+==============================*/
+
+
+.hero-image{
+
+    margin-top:45px;
+    display:flex;
+    justify-content:center;
+    position:relative;
+
+}
+
+
+
+.image-circle{
+
+    width:280px;
+    height:280px;
+
+    border-radius:50%;
+    overflow:hidden;
+
+    border:8px solid var(--yellow);
+
+    position:relative;
+
+}
+
+
+
+.image-circle img{
+
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+}
+
+
+
+
+.experience-card{
+
+    position:absolute;
+
+    bottom:0;
+    right:20px;
+
+    background:white;
+    color:black;
+
+    padding:18px;
+    border-radius:10px;
+
+    display:flex;
+    flex-direction:column;
+
+    box-shadow:0 10px 30px #000;
+
+}
+
+
+
+.experience-card strong{
+
+    font-size:30px;
+    color:black;
+
+}
+
+
+
+.experience-card span{
+
+    font-size:10px;
+    font-weight:700;
+
+}
+
+
+
+
+
+/*==============================
+STATS
+==============================*/
+
+
+.stats{
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+
+    padding:20px;
+
+}
+
+
+
+.stat-box{
+
+    background:#111;
+
+    border:1px solid #222;
+
+    padding:20px 10px;
+
+    text-align:center;
+
+}
+
+
+
+.stat-box h2{
+
+    color:var(--yellow);
+    font-size:28px;
+
+}
+
+
+
+.stat-box p{
+
+    color:#aaa;
+    font-size:11px;
+    margin-top:8px;
+
+}
+
+
+
+
+
+/*==============================
+WHY SECTION
+==============================*/
+
+
+.why{
+
+    padding:40px 22px;
+
+}
+
+
+
+.why h2{
+
+    font-family:var(--heading);
+    font-size:45px;
+    letter-spacing:2px;
+    margin-bottom:30px;
+
+}
+
+
+
+.why h2 span{
+
+    color:var(--yellow);
+
+}
+
+
+
+.why-card{
+
+
+    background:#101010;
+
+    padding:22px;
+
+    margin-bottom:15px;
+
+    display:flex;
+
+    gap:20px;
+
+    border-left:4px solid var(--yellow);
+
+}
+
+
+
+.why-card i{
+
+    color:var(--yellow);
+    font-size:25px;
+
+}
+
+
+
+.why-card h3{
+
+    margin-bottom:8px;
+
+}
+
+
+
+.why-card p{
+
+    color:#aaa;
+    font-size:13px;
+    line-height:1.5;
+
+}
+
+
+
+
+/*==============================
+CTA
+==============================*/
+
+
+.cta{
+
+    margin:20px;
+
+    padding:40px 25px;
+
+    background:white;
+
+    color:black;
+
+    text-align:center;
+
+}
+
+
+
+.cta h2{
+
+    font-family:var(--heading);
+    font-size:45px;
+    line-height:1;
+
+}
+
+
+
+.cta strong{
+
+    color:#b58a00;
+
+}
+
+
+
+.cta p{
+
+    margin:20px 0;
+
+}
+
+
+
+.cta button{
+
+    background:black;
+    color:white;
+
+    border:none;
+
+    padding:15px 35px;
+
+    font-weight:800;
+
+}
+
+
+
+
+
+/*==============================
+BOTTOM NAV
+==============================*/
+
+
+.bottom-nav{
+
+    position:fixed;
+
+    bottom:0;
+    left:0;
+
+    width:100%;
+
+    height:80px;
+
+    background:#080808;
+
+    border-top:1px solid #222;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    z-index:999;
+
+}
+
+
+
+.bottom-nav a{
+
+    color:#777;
+
+    text-decoration:none;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:7px;
+
+    font-size:11px;
+
+}
+
+
+
+.bottom-nav i{
+
+    font-size:20px;
+
+}
+
+
+
+.bottom-nav .active,
+.bottom-nav .active i{
+
+    color:var(--yellow);
+
+}
+
+
+
+
+
+/*==============================
+RESPONSIVE
+==============================*/
+
+
+@media(max-width:360px){
+
+
+.hero h1{
+
+    font-size:58px;
+
+}
+
+
+.image-circle{
+
+    width:240px;
+    height:240px;
+
+}
+
+
+.logo{
+
+    font-size:35px;
+
+}
+
+
+}
+
+
+
+@media(min-width:768px){
+
+
+.hero{
+
+    max-width:600px;
+    margin:auto;
+
+}
+
+
+
+.bottom-nav{
+
+    max-width:600px;
+    left:50%;
+    transform:translateX(-50%);
+
+}
+
+
 
 }
 
 /*==============================
-LANDING PAGE FIX
+ANIMATIONS
+==============================*/
+
+
+.hidden{
+
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s ease;
+
+}
+
+
+
+.show{
+
+    opacity:1;
+    transform:translateY(0);
+
+}
+
+
+
+
+.booking-btn,
+.cta button{
+
+    position:relative;
+    overflow:hidden;
+
+}
+
+
+
+.ripple{
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    background:rgba(255,255,255,.5);
+
+    border-radius:50%;
+
+    transform:translate(-50%,-50%);
+
+    animation:rippleEffect .6s linear;
+
+}
+
+
+
+@keyframes rippleEffect{
+
+    from{
+        transform:scale(0);
+        opacity:1;
+    }
+
+    to{
+        transform:scale(4);
+        opacity:0;
+    }
+
+} /* <-- THIS BRACE IS MISSING */
+
+/*==================================================
+LANDING PAGE CONVERSION SECTIONS
+==================================================*/
+
+
+/*==============================
+HERO BUTTONS
 ==============================*/
 
 
 .hero-buttons{
 
     display:flex;
-    gap:15px;
-    margin-top:25px;
+    gap:12px;
+    flex-wrap:wrap;
 
 }
-
 
 
 .outline-btn{
 
     background:transparent;
+
     color:white;
 
-    border:1px solid #f5c518;
+    border:1px solid var(--yellow);
 
-    padding:16px 22px;
+    padding:17px 22px;
 
-    font-weight:800;
+    font-weight:700;
 
     display:flex;
+
     align-items:center;
+
     gap:10px;
 
 }
 
 
+
+
+/*==============================
+TRUST BAR
+==============================*/
 
 
 .trust-bar{
@@ -70,13 +731,13 @@ LANDING PAGE FIX
 
     background:#111;
 
+    border:1px solid #222;
+
     display:grid;
 
     grid-template-columns:repeat(3,1fr);
 
-    padding:25px 10px;
-
-    border:1px solid #222;
+    padding:20px 10px;
 
 }
 
@@ -86,15 +747,27 @@ LANDING PAGE FIX
 
     text-align:center;
 
+    border-right:1px solid #333;
+
+}
+
+
+
+.trust-bar div:last-child{
+
+    border:none;
+
 }
 
 
 
 .trust-bar i{
 
-    color:#f5c518;
+    color:var(--yellow);
 
-    font-size:22px;
+    font-size:20px;
+
+    margin-bottom:8px;
 
 }
 
@@ -102,9 +775,7 @@ LANDING PAGE FIX
 
 .trust-bar h3{
 
-    margin:10px 0 5px;
-
-    font-size:24px;
+    font-size:25px;
 
 }
 
@@ -112,7 +783,7 @@ LANDING PAGE FIX
 
 .trust-bar p{
 
-    color:#aaa;
+    color:#999;
 
     font-size:11px;
 
@@ -120,6 +791,11 @@ LANDING PAGE FIX
 
 
 
+
+
+/*==============================
+INTRO SECTION
+==============================*/
 
 
 .intro{
@@ -132,11 +808,29 @@ LANDING PAGE FIX
 
 
 
+.small-title{
+
+    color:var(--yellow);
+
+    font-size:12px;
+
+    letter-spacing:3px;
+
+    font-weight:700;
+
+}
+
+
+
 .intro h2{
 
-    font-family:'Bebas Neue';
+    font-family:var(--heading);
 
-    font-size:48px;
+    font-size:45px;
+
+    line-height:1;
+
+    margin:15px 0;
 
 }
 
@@ -144,22 +838,29 @@ LANDING PAGE FIX
 
 .intro h2 span{
 
-    color:#f5c518;
+    color:var(--yellow);
 
 }
 
 
 
-.intro p{
+.intro p:last-child{
 
     color:#aaa;
 
     line-height:1.7;
 
+    font-size:14px;
+
 }
 
 
 
+
+
+/*==============================
+SERVICE PREVIEW
+==============================*/
 
 
 .preview-services{
@@ -170,38 +871,46 @@ LANDING PAGE FIX
 
 
 
-.preview-services h2{
+.preview-services h2,
+.gallery-preview h2{
 
-    font-family:'Bebas Neue';
+    font-family:var(--heading);
 
     font-size:45px;
 
-}
-
-
-
-.preview-services h2 span{
-
-    color:#f5c518;
+    margin-bottom:25px;
 
 }
+
+
+
+.preview-services h2 span,
+.gallery-preview h2 span{
+
+    color:var(--yellow);
+
+}
+
 
 
 
 
 .mini-service{
 
+
     background:#111;
 
     padding:20px;
 
-    margin:15px 0;
+    margin-bottom:15px;
 
     display:flex;
 
     gap:20px;
 
-    border-left:4px solid #f5c518;
+    align-items:center;
+
+    border-left:3px solid var(--yellow);
 
 }
 
@@ -209,9 +918,17 @@ LANDING PAGE FIX
 
 .mini-service i{
 
-    color:#f5c518;
-
     font-size:25px;
+
+    color:var(--yellow);
+
+}
+
+
+
+.mini-service h3{
+
+    margin-bottom:6px;
 
 }
 
@@ -219,7 +936,7 @@ LANDING PAGE FIX
 
 .mini-service p{
 
-    color:#aaa;
+    color:#999;
 
     font-size:13px;
 
@@ -232,17 +949,32 @@ LANDING PAGE FIX
 
     width:100%;
 
-    padding:18px;
+    margin-top:10px;
 
-    background:#f5c518;
+    padding:17px;
+
+    background:var(--yellow);
 
     border:none;
 
-    font-weight:900;
+    font-weight:800;
 
 }
 
 
+
+
+
+/*==============================
+GALLERY PREVIEW
+==============================*/
+
+
+.gallery-preview{
+
+    padding:40px 22px;
+
+}
 
 
 
@@ -262,86 +994,11 @@ LANDING PAGE FIX
 
     width:100%;
 
-    height:130px;
+    height:160px;
 
     object-fit:cover;
 
-}
-
-
-
-
-@media(max-width:500px){
-
-.hero h1{
-
-font-size:60px;
-
-}
-
-
-.hero-buttons{
-
-flex-direction:column;
-
-}
-
-
-.hero-buttons button{
-
-width:100%;
-
-justify-content:center;
-
-}
-
-
-
-}
-
-/*==================================================
-  SERVICES PAGE
-==================================================*/
-
-
-/*==============================
-HEADER
-==============================*/
-
-
-.service-header{
-
-    padding:35px 22px 20px;
-    text-align:left;
-
-}
-
-
-
-.service-header h1{
-
-    font-family:var(--heading);
-    font-size:65px;
-    line-height:.9;
-    margin:25px 0 15px;
-
-}
-
-
-
-.service-header h1 span{
-
-    color:var(--yellow);
-
-}
-
-
-
-.service-header p:last-child{
-
-    color:#aaa;
-    line-height:1.7;
-    font-size:14px;
+    border-radius:3px;
 
 }
 
@@ -350,29 +1007,19 @@ HEADER
 
 
 /*==============================
-SERVICE CARDS
+WHY SECTION IMPROVEMENT
 ==============================*/
 
 
-.services-list{
+.why{
 
-    padding:20px 22px;
+    padding-top:50px;
 
 }
 
 
 
-.service-box{
-
-    background:#111;
-
-    border:1px solid #222;
-
-    padding:25px;
-
-    margin-bottom:20px;
-
-    position:relative;
+.why-card{
 
     transition:.4s;
 
@@ -380,106 +1027,9 @@ SERVICE CARDS
 
 
 
-.service-box:hover{
+.why-card:hover{
 
-    transform:translateY(-8px);
-
-    border-color:var(--yellow);
-
-}
-
-
-
-
-.service-top{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-    margin-bottom:15px;
-
-}
-
-
-
-.service-top i{
-
-    color:var(--yellow);
-
-    font-size:28px;
-
-}
-
-
-
-.service-top h2{
-
-    font-size:22px;
-
-}
-
-
-
-
-
-.service-box > p{
-
-    color:#999;
-
-    font-size:14px;
-
-    line-height:1.7;
-
-    margin-bottom:25px;
-
-}
-
-
-
-
-
-.service-bottom{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-}
-
-
-
-.service-bottom strong{
-
-    font-size:32px;
-
-    color:var(--yellow);
-
-}
-
-
-
-.service-bottom button{
-
-    background:white;
-
-    color:black;
-
-    border:none;
-
-    padding:12px 20px;
-
-    font-weight:800;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
+    transform:translateX(8px);
 
 }
 
@@ -488,1101 +1038,13 @@ SERVICE CARDS
 
 
 /*==============================
-FEATURED SERVICE
+CTA IMPROVEMENT
 ==============================*/
 
 
-.featured-service{
+.cta button{
 
-    border:2px solid var(--yellow);
-
-    overflow:hidden;
-
-}
-
-
-
-.service-label{
-
-    position:absolute;
-
-    top:0;
-
-    right:0;
-
-    background:var(--yellow);
-
-    color:black;
-
-    padding:8px 15px;
-
-    font-size:10px;
-
-    font-weight:900;
-
-    letter-spacing:1px;
-
-}
-
-
-
-
-
-/*==============================
-BENEFITS
-==============================*/
-
-
-.service-benefits{
-
-    padding:40px 22px;
-
-}
-
-
-
-.service-benefits h2{
-
-    font-family:var(--heading);
-
-    font-size:45px;
-
-    line-height:1;
-
-    margin-bottom:25px;
-
-}
-
-
-
-.service-benefits h2 span{
-
-    color:var(--yellow);
-
-}
-
-
-
-.service-benefits div{
-
-    background:#111;
-
-    padding:18px;
-
-    margin-bottom:12px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:20px;
-
-    border-left:3px solid var(--yellow);
-
-}
-
-
-
-.service-benefits i{
-
-    color:var(--yellow);
-
-    font-size:22px;
-
-}
-
-
-
-.service-benefits p{
-
-    color:white;
-
-    font-size:14px;
-
-}
-
-
-
-
-
-/*==============================
-CTA
-==============================*/
-
-
-.service-cta{
-
-    margin:22px;
-
-    background:white;
-
-    color:black;
-
-    padding:40px 25px;
-
-    text-align:center;
-
-}
-
-
-
-.service-cta h2{
-
-    font-family:var(--heading);
-
-    font-size:42px;
-
-    line-height:1;
-
-}
-
-
-
-.service-cta p{
-
-    margin:20px 0;
-
-    color:#555;
-
-}
-
-
-
-.service-cta button{
-
-    background:black;
-
-    color:white;
-
-    padding:16px 30px;
-
-    border:none;
-
-    font-weight:900;
-
-}
-
-
-
-
-
-/*==============================
-MOBILE OPTIMIZATION
-==============================*/
-
-
-@media(max-width:380px){
-
-
-.service-header h1{
-
-    font-size:55px;
-
-}
-
-
-.service-bottom strong{
-
-    font-size:27px;
-
-}
-
-
-
-.service-top h2{
-
-    font-size:19px;
-
-}
-
-
-}
-
-
-
-@media(min-width:768px){
-
-
-.service-header,
-.services-list,
-.service-benefits,
-.service-cta{
-
-    max-width:600px;
-
-    margin:auto;
-
-}
-
-
-}
-
-/*==================================================
-  GALLERY PAGE
-==================================================*/
-
-
-/*==============================
-GALLERY HEADER
-==============================*/
-
-
-.gallery-header{
-
-    padding:35px 22px 25px;
-
-}
-
-
-
-.gallery-header h1{
-
-    font-family:var(--heading);
-
-    font-size:65px;
-
-    line-height:.9;
-
-    margin:25px 0 15px;
-
-}
-
-
-
-.gallery-header h1 span{
-
-    color:var(--yellow);
-
-}
-
-
-
-.gallery-header p:last-child{
-
-    color:#aaa;
-
-    font-size:14px;
-
-    line-height:1.7;
-
-}
-
-
-
-
-
-/*==============================
-FEATURED CUT
-==============================*/
-
-
-.featured-cut{
-
-    margin:20px 22px;
-
-    position:relative;
-
-    height:420px;
-
-    overflow:hidden;
-
-}
-
-
-
-.featured-cut img{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-}
-
-
-
-.cut-info{
-
-    position:absolute;
-
-    bottom:0;
-
-    left:0;
-
-    width:100%;
-
-    padding:30px 20px;
-
-    background:linear-gradient(
-    transparent,
-    rgba(0,0,0,.9)
-    );
-
-}
-
-
-
-.cut-info h2{
-
-    font-family:var(--heading);
-
-    font-size:40px;
-
-}
-
-
-
-.cut-info p{
-
-    color:#ddd;
-
-    font-size:13px;
-
-}
-
-
-
-
-
-/*==============================
-GALLERY GRID
-==============================*/
-
-
-.gallery-section{
-
-    padding:20px 22px;
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:15px;
-
-}
-
-
-
-
-.gallery-item{
-
-    height:250px;
-
-    position:relative;
-
-    overflow:hidden;
-
-}
-
-
-
-.gallery-item img{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-    transition:.5s;
-
-}
-
-
-
-.gallery-item:hover img{
-
-    transform:scale(1.1);
-
-}
-
-
-
-
-.image-overlay{
-
-    position:absolute;
-
-    bottom:0;
-
-    left:0;
-
-    width:100%;
-
-    padding:20px 12px;
-
-    background:linear-gradient(
-    transparent,
-    rgba(0,0,0,.85)
-    );
-
-}
-
-
-
-.image-overlay h3{
-
-    font-size:16px;
-
-}
-
-
-
-
-
-/*==============================
-CTA
-==============================*/
-
-
-.gallery-cta{
-
-    margin:25px 22px;
-
-    background:white;
-
-    color:black;
-
-    padding:40px 25px;
-
-    text-align:center;
-
-}
-
-
-
-.gallery-cta h2{
-
-    font-family:var(--heading);
-
-    font-size:45px;
-
-    line-height:1;
-
-}
-
-
-
-.gallery-cta h2 span{
-
-    color:#b28a00;
-
-}
-
-
-
-.gallery-cta p{
-
-    margin:20px 0;
-
-    color:#555;
-
-}
-
-
-
-.gallery-cta button{
-
-    background:black;
-
-    color:white;
-
-    border:none;
-
-    padding:16px 25px;
-
-    font-weight:900;
-
-    display:flex;
-
-    margin:auto;
-
-    align-items:center;
-
-    gap:10px;
-
-}
-
-
-
-
-
-/*==============================
-RESPONSIVE
-==============================*/
-
-
-@media(max-width:380px){
-
-
-.gallery-header h1{
-
-    font-size:55px;
-
-}
-
-
-
-.featured-cut{
-
-    height:350px;
-
-}
-
-
-
-.gallery-item{
-
-    height:210px;
-
-}
-
-
-}
-
-
-
-@media(min-width:768px){
-
-
-.gallery-header,
-.featured-cut,
-.gallery-section,
-.gallery-cta{
-
-    max-width:600px;
-
-    margin-left:auto;
-
-    margin-right:auto;
-
-}
-
-
-
-}
-
-/*==================================================
-  ABOUT PAGE
-==================================================*/
-
-
-/*==============================
-ABOUT HEADER
-==============================*/
-
-
-.about-header{
-
-    padding:35px 22px 20px;
-
-}
-
-
-
-.about-header h1{
-
-    font-family:var(--heading);
-
-    font-size:65px;
-
-    line-height:.9;
-
-    margin:25px 0 15px;
-
-}
-
-
-
-.about-header h1 span{
-
-    color:var(--yellow);
-
-}
-
-
-
-.about-header p:last-child{
-
-    color:#aaa;
-
-    font-size:14px;
-
-    line-height:1.7;
-
-}
-
-
-
-
-
-/*==============================
-PROFILE SECTION
-==============================*/
-
-
-.barber-profile{
-
-    padding:30px 22px;
-
-}
-
-
-
-.profile-image{
-
-    height:380px;
-
-    overflow:hidden;
-
-    border:3px solid var(--yellow);
-
-    margin-bottom:30px;
-
-}
-
-
-
-.profile-image img{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-}
-
-
-
-
-.profile-content h2{
-
-    font-family:var(--heading);
-
-    font-size:45px;
-
-    line-height:1;
-
-    margin-bottom:20px;
-
-}
-
-
-
-.profile-content h2 span{
-
-    color:var(--yellow);
-
-}
-
-
-
-.profile-content p{
-
-    color:#aaa;
-
-    font-size:14px;
-
-    line-height:1.8;
-
-    margin-bottom:15px;
-
-}
-
-
-
-
-
-/*==============================
-EXPERIENCE
-==============================*/
-
-
-.experience-section{
-
-    padding:40px 22px;
-
-}
-
-
-
-.experience-section h2{
-
-    font-family:var(--heading);
-
-    font-size:45px;
-
-    line-height:1;
-
-    margin-bottom:25px;
-
-}
-
-
-
-.experience-section h2 span{
-
-    color:var(--yellow);
-
-}
-
-
-
-
-.experience-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:10px;
-
-}
-
-
-
-.experience-grid div{
-
-    background:#111;
-
-    border:1px solid #222;
-
-    text-align:center;
-
-    padding:20px 8px;
-
-}
-
-
-
-.experience-grid i{
-
-    color:var(--yellow);
-
-    font-size:22px;
-
-}
-
-
-
-.experience-grid h3{
-
-    font-size:22px;
-
-    margin:10px 0;
-
-}
-
-
-
-.experience-grid p{
-
-    color:#999;
-
-    font-size:10px;
-
-}
-
-
-
-
-
-/*==============================
-VALUES
-==============================*/
-
-
-.values-section{
-
-    padding:30px 22px;
-
-}
-
-
-
-.values-section h2{
-
-    font-family:var(--heading);
-
-    font-size:45px;
-
-    margin-bottom:25px;
-
-}
-
-
-
-.values-section h2 span{
-
-    color:var(--yellow);
-
-}
-
-
-
-
-.value-card{
-
-    display:flex;
-
-    gap:20px;
-
-    align-items:center;
-
-    background:#111;
-
-    padding:22px;
-
-    margin-bottom:15px;
-
-    border-left:4px solid var(--yellow);
-
-}
-
-
-
-.value-card i{
-
-    color:var(--yellow);
-
-    font-size:25px;
-
-}
-
-
-
-.value-card h3{
-
-    margin-bottom:8px;
-
-}
-
-
-
-.value-card p{
-
-    color:#aaa;
-
-    font-size:13px;
-
-    line-height:1.5;
-
-}
-
-
-
-
-
-/*==============================
-ABOUT CTA
-==============================*/
-
-
-.about-cta{
-
-    margin:22px;
-
-    background:white;
-
-    color:black;
-
-    padding:45px 25px;
-
-    text-align:center;
-
-}
-
-
-
-.about-cta h2{
-
-    font-family:var(--heading);
-
-    font-size:45px;
-
-    line-height:1;
-
-}
-
-
-
-.about-cta strong{
-
-    color:#b28a00;
-
-}
-
-
-
-.about-cta button{
-
-    margin-top:25px;
-
-    background:black;
-
-    color:white;
-
-    padding:16px 25px;
-
-    border:none;
-
-    font-weight:900;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    margin-left:auto;
-
-    margin-right:auto;
-
-}
-
-
-
-
-
-/*==============================
-RESPONSIVE
-==============================*/
-
-
-@media(max-width:380px){
-
-
-.about-header h1{
-
-    font-size:55px;
-
-}
-
-
-
-.profile-image{
-
-    height:320px;
-
-}
-
-
-
-.experience-grid h3{
-
-    font-size:18px;
-
-}
-
-
-}
-
-
-
-@media(min-width:768px){
-
-
-.about-header,
-.barber-profile,
-.experience-section,
-.values-section,
-.about-cta{
-
-    max-width:600px;
-
-    margin-left:auto;
-
-    margin-right:auto;
-
-}
-
-
-}
-
-/*==================================================
-  CONTACT PAGE
-==================================================*/
-
-
-/*==============================
-CONTACT HEADER
-==============================*/
-
-
-.contact-header{
-
-    padding:35px 22px 25px;
-
-}
-
-
-
-.contact-header h1{
-
-    font-family:var(--heading);
-
-    font-size:65px;
-
-    line-height:.9;
-
-    margin:25px 0 15px;
-
-}
-
-
-
-.contact-header h1 span{
-
-    color:var(--yellow);
-
-}
-
-
-
-.contact-header p:last-child{
-
-    color:#aaa;
-
-    font-size:14px;
-
-    line-height:1.7;
-
-}
-
-
-
-
-
-/*==============================
-CONTACT CARDS
-==============================*/
-
-
-.contact-cards{
-
-    padding:20px 22px;
-
-}
-
-
-
-.contact-card{
-
-    background:#111;
-
-    border:1px solid #222;
-
-    padding:22px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:20px;
-
-    margin-bottom:15px;
+    cursor:pointer;
 
     transition:.3s;
 
@@ -1590,523 +1052,38 @@ CONTACT CARDS
 
 
 
-.contact-card:hover{
-
-    border-color:var(--yellow);
-
-    transform:translateX(5px);
-
-}
-
-
-
-.contact-card i{
-
-    color:var(--yellow);
-
-    font-size:28px;
-
-}
-
-
-
-.contact-card h3{
-
-    margin-bottom:6px;
-
-}
-
-
-
-.contact-card p{
-
-    color:#999;
-
-    font-size:13px;
-
-}
-
-
-
-
-
-/*==============================
-OPENING HOURS
-==============================*/
-
-
-.hours{
-
-    padding:40px 22px;
-
-}
-
-
-
-.hours h2{
-
-    font-family:var(--heading);
-
-    font-size:45px;
-
-    margin-bottom:25px;
-
-}
-
-
-
-.hours h2 span{
-
-    color:var(--yellow);
-
-}
-
-
-
-.hours-row{
-
-    background:#111;
-
-    padding:18px;
-
-    margin-bottom:10px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    border-left:3px solid var(--yellow);
-
-}
-
-
-
-.hours-row p{
-
-    color:#aaa;
-
-    font-size:13px;
-
-}
-
-
-
-.hours-row strong{
-
-    color:white;
-
-    font-size:13px;
-
-}
-
-
-
-
-
-/*==============================
-BOOKING SECTION
-==============================*/
-
-
-.booking-section{
-
-    margin:22px;
+.cta button:hover{
 
     background:var(--yellow);
 
     color:black;
 
-    padding:40px 25px;
-
-    text-align:center;
-
 }
-
-
-
-.booking-section h2{
-
-    font-family:var(--heading);
-
-    font-size:40px;
-
-    line-height:1;
-
-}
-
-
-
-.booking-section p{
-
-    margin:20px 0;
-
-}
-
-
-
-.booking-section button{
-
-    background:black;
-
-    color:white;
-
-    border:none;
-
-    padding:17px 25px;
-
-    font-weight:900;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    margin:auto;
-
-}
-
 
 
 
 
 /*==============================
-MAP
-==============================*/
-
-
-.map-box{
-
-    margin:22px;
-
-    height:220px;
-
-    background:#111;
-
-    border:1px solid #222;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-}
-
-
-
-.map-box i{
-
-    color:var(--yellow);
-
-    font-size:40px;
-
-    margin-bottom:15px;
-
-}
-
-
-
-.map-box p{
-
-    color:#aaa;
-
-}
-
-
-
-
-
-/*==============================
-MOBILE FIX
+MOBILE FIXES
 ==============================*/
 
 
 @media(max-width:380px){
 
 
-.contact-header h1{
-
-    font-size:55px;
-
-}
-
-
-
-.hours-row{
-
-    flex-direction:column;
-
-    gap:8px;
-
-}
-
-
-}
-
-
-
-@media(min-width:768px){
-
-
-.contact-header,
-.contact-cards,
-.hours,
-.booking-section,
-.map-box{
-
-    max-width:600px;
-
-    margin-left:auto;
-
-    margin-right:auto;
-
-}
-
-
-}
-
-/*==============================
-JS ANIMATIONS
-==============================*/
-
-
-.reveal{
-
-    opacity:0;
-
-    transform:translateY(40px);
-
-    transition:0.8s ease;
-
-}
-
-
-
-.reveal.active{
-
-    opacity:1;
-
-    transform:translateY(0);
-
-}
-
-
-
-button{
-
-    transition:.3s;
-
-}
-
-
-
-button.clicked{
-
-    transform:scale(.95);
-
-}
-
-
-
-img{
-
-    opacity:0;
-
-    transition:.8s ease;
-
-}
-
-
-
-img.loaded{
-
-    opacity:1;
-
-}
-
-
-/*==================================================
-GLOBAL RESPONSIVE FIXES
-==================================================*/
-
-
-html{
-    scroll-behavior:smooth;
-}
-
-
-body{
-    overflow-x:hidden;
-}
-
-
-/* CONTAINER CONTROL */
-
-section{
-    width:100%;
-}
-
-
-
-img{
-    max-width:100%;
-    height:auto;
-}
-
-
-
-
-/*==================================================
-HERO RESPONSIVE
-==================================================*/
-
-
-.hero{
-
-    display:flex;
-    flex-direction:column;
-
-}
-
-
-
-.hero-content,
-.hero-image{
-
-    width:100%;
-
-}
-
-
-
-.hero h1{
-
-    font-size:clamp(45px,10vw,70px);
-
-}
-
-
-
-.image-circle{
-
-    width:min(80vw,350px);
-    height:min(80vw,350px);
-
-}
-
-
-
-.experience-card{
-
-    max-width:220px;
-
-}
-
-
-
-
-.hero-buttons button{
-
-    min-height:55px;
-
-}
-
-
-
-
-
-
-/*==================================================
-SMALL PHONES
-==================================================*/
-
-
-@media(max-width:400px){
-
-
-.hero{
-
-    padding:30px 18px;
-
-}
-
-
-
-.logo{
-
-    font-size:34px;
-
-}
-
-
-
-.tag{
-
-    margin-top:40px;
-    font-size:10px;
-
-}
-
-
-
-.hero h1{
-
-    font-size:48px;
-
-}
-
-
-
-.description{
-
-    font-size:14px;
-
-}
-
-
-
-.hero-buttons{
-
-    flex-direction:column;
-
-}
-
-
-
 .hero-buttons button{
 
     width:100%;
+
     justify-content:center;
 
 }
 
 
 
-.trust-bar{
+.trust-bar h3{
 
-    grid-template-columns:1fr;
-
-    gap:25px;
-
-}
-
-
-
-.intro h2,
-.preview-services h2{
-
-    font-size:38px;
-
-}
-
-
-
-.gallery-grid{
-
-    grid-template-columns:1fr;
+    font-size:20px;
 
 }
 
@@ -2114,96 +1091,7 @@ SMALL PHONES
 
 .gallery-grid img{
 
-    height:250px;
-
-}
-
-
-
-.service-header h1,
-.gallery-header h1,
-.about-header h1,
-.contact-header h1{
-
-    font-size:52px;
-
-}
-
-
-
-.service-bottom{
-
-    flex-direction:column;
-
-    align-items:flex-start;
-
-    gap:20px;
-
-}
-
-
-
-.service-bottom button{
-
-    width:100%;
-    justify-content:center;
-
-}
-
-
-
-.experience-grid{
-
-    grid-template-columns:1fr;
-
-}
-
-
-
-}
-
-
-/*==================================================
-TABLETS
-==================================================*/
-
-
-@media(min-width:600px){
-
-
-.hero{
-
-    padding:50px;
-
-}
-
-
-
-.gallery-section{
-
-    grid-template-columns:repeat(3,1fr);
-
-}
-
-
-
-.services-list,
-.gallery-section,
-.barber-profile,
-.contact-cards,
-.values-section{
-
-    max-width:700px;
-
-    margin:auto;
-
-}
-
-
-
-.gallery-item{
-
-    height:300px;
+    height:120px;
 
 }
 
@@ -2214,124 +1102,28 @@ TABLETS
 
 
 
-/*==================================================
-DESKTOP
-==================================================*/
+@media(min-width:768px){
 
 
-@media(min-width:1000px){
-
-
-.hero{
-
-    min-height:100vh;
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    align-items:center;
-
-    gap:40px;
-
-    padding:80px;
-
-}
-
-
-
-.hero-image{
-
-    justify-content:center;
-
-}
-
-
-
-.hero-content{
+.hero,
+.trust-bar,
+.intro,
+.preview-services,
+.gallery-preview,
+.why,
+.cta{
 
     max-width:600px;
 
-}
+    margin-left:auto;
 
-
-
-.trust-bar{
-
-    max-width:1000px;
-
-    margin:40px auto;
+    margin-right:auto;
 
 }
-
-
-
-.intro,
-.preview-services,
-.why{
-
-    max-width:900px;
-
-    margin:auto;
-
-}
-
-
-
-.gallery-grid{
-
-    max-width:1000px;
-
-    margin:auto;
-
-}
-
-
-
-.bottom-nav{
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    width:500px;
-
-}
-
 
 
 }
 
 
-
-
-/*==================================================
-BOTTOM NAV RESPONSIVE
-==================================================*/
-
-
-.bottom-nav{
-
-    position:fixed;
-
-    bottom:15px;
-
-    left:15px;
-
-    right:15px;
-
-    z-index:999;
-
 }
 
-
-
-@media(min-width:1000px){
-
-.bottom-nav{
-
-    right:auto;
-
-}
-
-    }
