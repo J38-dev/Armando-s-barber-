@@ -1,3 +1,34 @@
+:root{
+
+--black:#050505;
+--dark:#111;
+--white:#fff;
+--yellow:#f5c518;
+--grey:#aaa;
+
+--heading:'Bebas Neue', sans-serif;
+--body:'Montserrat', sans-serif;
+
+}
+
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+
+body{
+
+background:#050505;
+color:white;
+font-family:var(--body);
+overflow-x:hidden;
+padding-bottom:100px;
+
+}
+
 /*==============================
 LANDING PAGE FIX
 ==============================*/
@@ -1895,3 +1926,412 @@ img.loaded{
     opacity:1;
 
 }
+
+
+/*==================================================
+GLOBAL RESPONSIVE FIXES
+==================================================*/
+
+
+html{
+    scroll-behavior:smooth;
+}
+
+
+body{
+    overflow-x:hidden;
+}
+
+
+/* CONTAINER CONTROL */
+
+section{
+    width:100%;
+}
+
+
+
+img{
+    max-width:100%;
+    height:auto;
+}
+
+
+
+
+/*==================================================
+HERO RESPONSIVE
+==================================================*/
+
+
+.hero{
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+
+
+.hero-content,
+.hero-image{
+
+    width:100%;
+
+}
+
+
+
+.hero h1{
+
+    font-size:clamp(45px,10vw,70px);
+
+}
+
+
+
+.image-circle{
+
+    width:min(80vw,350px);
+    height:min(80vw,350px);
+
+}
+
+
+
+.experience-card{
+
+    max-width:220px;
+
+}
+
+
+
+
+.hero-buttons button{
+
+    min-height:55px;
+
+}
+
+
+
+
+
+
+/*==================================================
+SMALL PHONES
+==================================================*/
+
+
+@media(max-width:400px){
+
+
+.hero{
+
+    padding:30px 18px;
+
+}
+
+
+
+.logo{
+
+    font-size:34px;
+
+}
+
+
+
+.tag{
+
+    margin-top:40px;
+    font-size:10px;
+
+}
+
+
+
+.hero h1{
+
+    font-size:48px;
+
+}
+
+
+
+.description{
+
+    font-size:14px;
+
+}
+
+
+
+.hero-buttons{
+
+    flex-direction:column;
+
+}
+
+
+
+.hero-buttons button{
+
+    width:100%;
+    justify-content:center;
+
+}
+
+
+
+.trust-bar{
+
+    grid-template-columns:1fr;
+
+    gap:25px;
+
+}
+
+
+
+.intro h2,
+.preview-services h2{
+
+    font-size:38px;
+
+}
+
+
+
+.gallery-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.gallery-grid img{
+
+    height:250px;
+
+}
+
+
+
+.service-header h1,
+.gallery-header h1,
+.about-header h1,
+.contact-header h1{
+
+    font-size:52px;
+
+}
+
+
+
+.service-bottom{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:20px;
+
+}
+
+
+
+.service-bottom button{
+
+    width:100%;
+    justify-content:center;
+
+}
+
+
+
+.experience-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+}
+
+
+/*==================================================
+TABLETS
+==================================================*/
+
+
+@media(min-width:600px){
+
+
+.hero{
+
+    padding:50px;
+
+}
+
+
+
+.gallery-section{
+
+    grid-template-columns:repeat(3,1fr);
+
+}
+
+
+
+.services-list,
+.gallery-section,
+.barber-profile,
+.contact-cards,
+.values-section{
+
+    max-width:700px;
+
+    margin:auto;
+
+}
+
+
+
+.gallery-item{
+
+    height:300px;
+
+}
+
+
+}
+
+
+
+
+
+/*==================================================
+DESKTOP
+==================================================*/
+
+
+@media(min-width:1000px){
+
+
+.hero{
+
+    min-height:100vh;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    align-items:center;
+
+    gap:40px;
+
+    padding:80px;
+
+}
+
+
+
+.hero-image{
+
+    justify-content:center;
+
+}
+
+
+
+.hero-content{
+
+    max-width:600px;
+
+}
+
+
+
+.trust-bar{
+
+    max-width:1000px;
+
+    margin:40px auto;
+
+}
+
+
+
+.intro,
+.preview-services,
+.why{
+
+    max-width:900px;
+
+    margin:auto;
+
+}
+
+
+
+.gallery-grid{
+
+    max-width:1000px;
+
+    margin:auto;
+
+}
+
+
+
+.bottom-nav{
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:500px;
+
+}
+
+
+
+}
+
+
+
+
+/*==================================================
+BOTTOM NAV RESPONSIVE
+==================================================*/
+
+
+.bottom-nav{
+
+    position:fixed;
+
+    bottom:15px;
+
+    left:15px;
+
+    right:15px;
+
+    z-index:999;
+
+}
+
+
+
+@media(min-width:1000px){
+
+.bottom-nav{
+
+    right:auto;
+
+}
+
+    }
