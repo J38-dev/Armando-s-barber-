@@ -2347,3 +2347,122 @@ PRICE LIST
     }
 
   }
+
+
+  /*==================================================
+PAYMENT DETAILS
+==================================================*/
+
+.payment-details,
+.shop-policies{
+    padding:0 22px 45px;
+}
+
+.payment-details h2,
+.shop-policies h2{
+    font-family:var(--heading);
+    font-size:46px;
+    margin-bottom:25px;
+    line-height:1;
+}
+
+.payment-details span,
+.shop-policies span{
+    color:var(--yellow);
+}
+
+.payment-card{
+    background:#101010;
+    border:1px solid #222;
+}
+
+.payment-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 20px;
+    border-bottom:1px solid #222;
+}
+
+.payment-row:last-child{
+    border-bottom:none;
+}
+
+.payment-row span{
+    color:var(--gray);
+}
+
+.payment-row strong{
+    color:var(--white);
+}
+
+.policy-card{
+    display:flex;
+    gap:18px;
+    align-items:center;
+    background:#101010;
+    border-left:4px solid var(--yellow);
+    padding:20px;
+    margin-bottom:15px;
+}
+
+.policy-card i{
+    color:var(--yellow);
+    font-size:22px;
+}
+
+.policy-card p{
+    color:var(--gray);
+    line-height:1.6;
+}
+
+.important-notice{
+    margin:0 22px 45px;
+    padding:35px 25px;
+    background:var(--yellow);
+    color:#000;
+    text-align:center;
+}
+
+.important-notice h2{
+    font-family:var(--heading);
+    font-size:54px;
+    line-height:1;
+    margin-bottom:15px;
+}
+
+.important-notice p{
+    font-weight:700;
+    line-height:1.7;
+}
+
+@media(min-width:768px){
+
+    .payment-details,
+    .shop-policies,
+    .important-notice{
+        max-width:600px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+}
+
+@media(max-width:380px){
+
+    .payment-row{
+        flex-direction:column;
+        gap:8px;
+        text-align:center;
+    }
+
+    .policy-card{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .important-notice h2{
+        font-size:42px;
+    }
+
+              }
