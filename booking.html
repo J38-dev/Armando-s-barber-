@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Book Your Chair | Armando's Barber</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet" href="booking.css">
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header class="booking-header">
+
+<a href="index.html" class="back-button">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+<span>BACK</span>
+
+</a>
+
+
+<div class="booking-logo">
+
+ARMANDO'S
+
+<span>BARBER</span>
+
+</div>
+
+</header>
+
+
+
+<!-- BOOKING HERO -->
+
+<section class="booking-hero">
+
+<p class="small-title">
+BOOK YOUR CHAIR
+</p>
+
+<h1>
+
+YOUR NEXT
+<br>
+
+<span>LOOK STARTS HERE.</span>
+
+</h1>
+
+<p>
+
+Choose your service, select a date and time,
+then enter your details to secure your appointment.
+
+</p>
+
+</section>
+
+
+
+<!-- BOOKING FORM -->
+
+<main class="booking-container">
+
+
+<form id="bookingForm">
+
+
+<!-- STEP 1 -->
+
+<section class="booking-section">
+
+<div class="section-number">
+01
+</div>
+
+<div class="section-content">
+
+<h2>SELECT YOUR SERVICE</h2>
+
+<p class="section-description">
+Choose the service you would like.
+</p>
+
+
+<div class="service-grid">
+
+
+<label class="service-option">
+
+<input
+type="radio"
+name="service"
+value="Classic Haircut"
+data-price="100"
+required
+>
+
+<div class="service-card">
+
+<div>
+
+<h3>Classic Haircut</h3>
+
+<p>Clean and professional haircut.</p>
+
+</div>
+
+<strong>R100</strong>
+
+</div>
+
+</label>
+
+
+
+<label class="service-option">
+
+<input
+type="radio"
+name="service"
+value="Fade"
+data-price="120"
+>
+
+<div class="service-card">
+
+<div>
+
+<h3>Fade</h3>
+
+<p>Precision fade in your preferred style.</p>
+
+</div>
+
+<strong>R120</strong>
+
+</div>
+
+</label>
+
+
+
+<label class="service-option">
+
+<input
+type="radio"
+name="service"
+value="Haircut & Beard"
+data-price="150"
+>
+
+<div class="service-card">
+
+<div>
+
+<h3>Haircut & Beard</h3>
+
+<p>Haircut with professional beard shaping.</p>
+
+</div>
+
+<strong>R150</strong>
+
+</div>
+
+</label>
+
+
+
+<label class="service-option">
+
+<input
+type="radio"
+name="service"
+value="Beard Trim"
+data-price="70"
+>
+
+<div class="service-card">
+
+<div>
+
+<h3>Beard Trim</h3>
+
+<p>Clean trim and detailed finishing.</p>
+
+</div>
+
+<strong>R70</strong>
+
+</div>
+
+</label>
+
+
+
+<label class="service-option">
+
+<input
+type="radio"
+name="service"
+value="Line-Up"
+data-price="60"
+>
+
+<div class="service-card">
+
+<div>
+
+<h3>Line-Up</h3>
+
+<p>Sharp hairline and edge-up.</p>
+
+</div>
+
+<strong>R60</strong>
+
+</div>
+
+</label>
+
+
+
+<label class="service-option">
+
+<input
+type="radio"
+name="service"
+value="Kids Haircut"
+data-price="80"
+>
+
+<div class="service-card">
+
+<div>
+
+<h3>Kids Haircut</h3>
+
+<p>Fresh haircut for younger clients.</p>
+
+</div>
+
+<strong>R80</strong>
+
+</div>
+
+</label>
+
+
+
+<label class="service-option">
+
+<input
+type="radio"
+name="service"
+value="Haircut & Wash"
+data-price="140"
+>
+
+<div class="service-card">
+
+<div>
+
+<h3>Haircut & Wash</h3>
+
+<p>Haircut followed by a refreshing wash.</p>
+
+</div>
+
+<strong>R140</strong>
+
+</div>
+
+</label>
+
+
+
+<label class="service-option">
+
+<input
+type="radio"
+name="service"
+value="Full Grooming"
+data-price="180"
+>
+
+<div class="service-card">
+
+<div>
+
+<h3>Full Grooming</h3>
+
+<p>Complete hair and beard grooming experience.</p>
+
+</div>
+
+<strong>R180</strong>
+
+</div>
+
+</label>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- STEP 2 -->
+
+<section class="booking-section">
+
+<div class="section-number">
+02
+</div>
+
+<div class="section-content">
+
+<h2>CHOOSE DATE</h2>
+
+<p class="section-description">
+Select the day you want to visit.
+</p>
+
+
+<div class="input-group">
+
+<label for="bookingDate">
+APPOINTMENT DATE
+</label>
+
+<input
+type="date"
+id="bookingDate"
+name="bookingDate"
+required
+>
+
+</div>
+
+
+<div id="dateMessage" class="form-message"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- STEP 3 -->
+
+<section class="booking-section">
+
+<div class="section-number">
+03
+</div>
+
+<div class="section-content">
+
+<h2>CHOOSE TIME</h2>
+
+<p class="section-description">
+Available times will appear after selecting a date.
+</p>
+
+
+<div id="timeSlots" class="time-slots">
+
+<div class="empty-slots">
+
+<i class="fa-regular fa-clock"></i>
+
+<p>
+Select a date to see available times.
+</p>
+
+</div>
+
+</div>
+
+<input
+type="hidden"
+id="bookingTime"
+name="bookingTime"
+required
+>
+
+</div>
+
+</section>
+
+
+
+<!-- STEP 4 -->
+
+<section class="booking-section">
+
+<div class="section-number">
+04
+</div>
+
+<div class="section-content">
+
+<h2>YOUR DETAILS</h2>
+
+<p class="section-description">
+Enter your details so we can confirm your appointment.
+</p>
+
+
+<div class="form-grid">
+
+
+<div class="input-group">
+
+<label for="customerName">
+FULL NAME
+</label>
+
+<input
+type="text"
+id="customerName"
+name="customerName"
+placeholder="Your full name"
+autocomplete="name"
+required
+>
+
+</div>
+
+
+
+<div class="input-group">
+
+<label for="customerPhone">
+PHONE NUMBER
+</label>
+
+<input
+type="tel"
+id="customerPhone"
+name="customerPhone"
+placeholder="e.g. 071 234 5678"
+autocomplete="tel"
+required
+>
+
+</div>
+
+
+
+<div class="input-group full-width">
+
+<label for="customerEmail">
+EMAIL <span>OPTIONAL</span>
+</label>
+
+<input
+type="email"
+id="customerEmail"
+name="customerEmail"
+placeholder="you@example.com"
+autocomplete="email"
+>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- CONFIRMATION -->
+
+<section class="confirmation-section">
+
+
+<div class="confirmation-header">
+
+<p class="small-title">
+FINAL STEP
+</p>
+
+<h2>
+CONFIRM YOUR
+<span>APPOINTMENT</span>
+</h2>
+
+</div>
+
+
+
+<div class="booking-summary">
+
+<div class="summary-row">
+
+<span>SERVICE</span>
+
+<strong id="summaryService">
+Not selected
+</strong>
+
+</div>
+
+
+<div class="summary-row">
+
+<span>DATE</span>
+
+<strong id="summaryDate">
+Not selected
+</strong>
+
+</div>
+
+
+<div class="summary-row">
+
+<span>TIME</span>
+
+<strong id="summaryTime">
+Not selected
+</strong>
+
+</div>
+
+
+<div class="summary-row total">
+
+<span>TOTAL</span>
+
+<strong id="summaryPrice">
+R0
+</strong>
+
+</div>
+
+</div>
+
+
+
+<div
+id="bookingMessage"
+class="booking-message"
+>
+</div>
+
+
+
+<button
+type="submit"
+id="confirmBooking"
+class="confirm-button"
+>
+
+CONFIRM APPOINTMENT
+
+<i class="fa-solid fa-arrow-right"></i>
+
+</button>
+
+
+<p class="booking-note">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+Your appointment will be securely saved once confirmed.
+
+</p>
+
+
+</section>
+
+
+</form>
+
+</main>
+
+
+
+<!-- SUCCESS MESSAGE -->
+
+<div
+id="successModal"
+class="success-modal"
+>
+
+<div class="success-box">
+
+<div class="success-icon">
+
+<i class="fa-solid fa-check"></i>
+
+</div>
+
+<p class="small-title">
+BOOKING CONFIRMED
+</p>
+
+<h2>
+YOU'RE
+<span>BOOKED.</span>
+</h2>
+
+<p id="successDetails">
+Your appointment has been successfully booked.
+</p>
+
+<a href="index.html" class="success-button">
+BACK TO HOME
+</a>
+
+</div>
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="booking.js"></script>
+
+</body>
+
+</html>
