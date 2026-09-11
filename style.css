@@ -2561,3 +2561,74 @@ PAYMENT DETAILS
     color: #f5c518 !important;
     border-color: #050505 !important;
   }
+
+/* ==========================================
+   BOOKING LINKS — MATCH ORIGINAL BUTTONS
+========================================== */
+
+.about-cta a,
+.gallery-cta a,
+.service-cta a,
+.service-bottom a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    background: #f5c518;
+    color: #050505 !important;
+
+    text-decoration: none !important;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+
+    border: 2px solid #f5c518;
+
+    min-height: 52px;
+    padding: 14px 28px;
+
+    width: auto;
+    min-width: 180px;
+
+    cursor: pointer;
+}
+
+
+/* SERVICE CARD BOOK BUTTONS */
+
+.service-bottom a {
+    min-width: 110px;
+    min-height: 46px;
+    padding: 12px 22px;
+}
+
+
+/* HOVER */
+
+.about-cta a:hover,
+.gallery-cta a:hover,
+.service-cta a:hover,
+.service-bottom a:hover {
+    background: #ffffff;
+    color: #050505 !important;
+    border-color: #ffffff;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .about-cta a,
+    .gallery-cta a,
+    .service-cta a {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .service-bottom a {
+        width: auto;
+        min-width: 110px;
+    }
+
+  }
