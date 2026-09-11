@@ -928,22 +928,30 @@ bookingForm.addEventListener(
           SUCCESS
         ==================================================*/
 
-        console.log(
-            "Booking created:",
-            data
-        );
+        /*==================================================
+  SUCCESS
+==================================================*/
 
+console.log(
+    "Booking created:",
+    data
+);
 
-        successDetails.textContent =
-            `${selectedService.value} • ${formatDate(selectedDate)} • ${formatTime(selectedTime)} • R${price}`;
 
 /*==================================================
-  OPEN WHATSAPP AFTER SUCCESSFUL DATABASE BOOKING
+  SAVE SUCCESS DETAILS
+==================================================*/
+
+const bookingDetails =
+    `${selectedService.value} • ${formatDate(selectedDate)} • ${formatTime(selectedTime)} • R${price}`;
+
+
+/*==================================================
+  PREPARE WHATSAPP
 ==================================================*/
 
 const whatsappNumber =
     "27694028390";
-
 
 const whatsappMessage =
 `🔔 NEW ARMANDO'S BARBER BOOKING
@@ -957,15 +965,13 @@ Price: R${price}
 
 Hi Armando's Barber, I have just booked an appointment.`;
 
-
 const whatsappURL =
     `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
 
-/*
-  Save the success information so it can
-  be shown when the customer returns.
-*/
+/*==================================================
+  SAVE SUCCESS STATE
+==================================================*/
 
 sessionStorage.setItem(
     "armandoBookingSuccess",
@@ -974,60 +980,99 @@ sessionStorage.setItem(
 
 sessionStorage.setItem(
     "armandoBookingDetails",
-    `${selectedService.value} • ${formatDate(selectedDate)} • ${formatTime(selectedTime)} • R${price}`
+    bookingDetails
 );
 
 
-/*
-  Open WhatsApp.
-*/
+/*==================================================
+  OPEN WHATSAPP
+==================================================*/
 
 window.location.href =
     whatsappURL;
 
 
+/*
+  Stop this submit function here.
+  The customer will return from WhatsApp
+  and the success screen will then appear.
+*/
 
-  /*==================================================
+return;
+
+});
+
+
+/*==================================================
   SHOW SUCCESS AFTER RETURNING FROM WHATSAPP
+==================================================*/
+
+function showBookingSuccess(){
+
+    const bookingSuccess =
+        sessionStorage.getItem(
+            "armandoBookingSuccess"
+        );
+
+    if(
+        bookingSuccess !== "true"
+    ){
+        return;
+    }
+
+
+    const details =
+        sessionStorage.getItem(
+            "armandoBookingDetails"
+        );
+
+
+    successDetails.textContent =
+        details ||
+        "Your appointment has been successfully booked.";
+
+
+    successModal.classList.add(
+        "show"
+    );
+
+
+    sessionStorage.removeItem(
+        "armandoBookingSuccess"
+    );
+
+    sessionStorage.removeItem(
+        "armandoBookingDetails"
+    );
+
+}
+
+
+/*==================================================
+  DETECT RETURN FROM WHATSAPP
 ==================================================*/
 
 window.addEventListener(
     "pageshow",
     function(){
 
-        const bookingSuccess =
-            sessionStorage.getItem(
-                "armandoBookingSuccess"
-            );
+        showBookingSuccess();
+
+    }
+);
 
 
-        if(
-            bookingSuccess === "true"
-        ){
+/*==================================================
+  ALSO CHECK WHEN PAGE BECOMES VISIBLE AGAIN
+==================================================*/
 
-            const details =
-                sessionStorage.getItem(
-                    "armandoBookingDetails"
-                );
+document.addEventListener(
+    "visibilitychange",
+    function(){
 
+        if(!document.hidden){
 
-            successDetails.textContent =
-                details ||
-                "Your appointment has been successfully booked.";
-
-
-            successModal.classList.add(
-                "show"
-            );
-
-
-            sessionStorage.removeItem(
-                "armandoBookingSuccess"
-            );
-
-            sessionStorage.removeItem(
-                "armandoBookingDetails"
-            );
+            showBookingSuccess();
 
         }
 
