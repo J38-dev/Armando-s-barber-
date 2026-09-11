@@ -152,18 +152,19 @@ WHATSAPP BOOKING
 CHANGE NUMBER
 =================================*/
 
-
-
 const whatsappNumber = "27820000000";
 
 
-const bookingButtons = document.querySelectorAll(
-".booking-btn, .cta button, .service-cta button, .gallery-cta button, .about-cta button, .booking-section button, .service-bottom button"
+/*=================================
+WHATSAPP BUTTONS ONLY
+=================================*/
+
+const whatsappButtons = document.querySelectorAll(
+".service-cta button, .gallery-cta button, .about-cta button, .booking-section button, .service-bottom button"
 );
 
 
-
-bookingButtons.forEach(button=>{
+whatsappButtons.forEach(button=>{
 
 
 button.addEventListener("click",()=>{
@@ -173,10 +174,8 @@ const message =
 "Hi Armando's Barber, I would like to book an appointment.";
 
 
-
 const whatsappURL =
 `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
 
 
 window.open(
@@ -185,14 +184,10 @@ whatsappURL,
 );
 
 
-
 });
 
 
 });
-
-
-
 
 
 
