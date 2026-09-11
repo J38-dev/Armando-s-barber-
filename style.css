@@ -2513,3 +2513,51 @@ PAYMENT DETAILS
     color: #050505 !important;
     background: #ffffff !important;
   }
+
+/* ==========================================
+   FINAL CTA SECTION — YELLOW
+========================================== */
+
+.cta {
+    background: #f5c518 !important;
+    color: #050505 !important;
+}
+
+.cta h2,
+.cta p,
+.cta span,
+.cta a {
+    color: #050505 !important;
+}
+
+
+/* ==========================================
+   BOOKING SUCCESS MODAL — YELLOW
+========================================== */
+
+.success-modal {
+    background: #f5c518 !important;
+    color: #050505 !important;
+}
+
+.success-box {
+    background: #f5c518 !important;
+    color: #050505 !important;
+}
+
+.success-box h2,
+.success-box p,
+.success-box .small-title {
+    color: #050505 !important;
+}
+
+.success-icon {
+    background: #050505 !important;
+    color: #f5c518 !important;
+}
+
+.success-button {
+    background: #050505 !important;
+    color: #f5c518 !important;
+    border-color: #050505 !important;
+  }
