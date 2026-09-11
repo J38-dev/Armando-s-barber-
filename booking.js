@@ -128,8 +128,7 @@ const successModal =
 const successDetails =
     document.getElementById("successDetails");
 
-  const whatsappNotify =
-    document.getElementById("whatsappNotify");
+  
 
 
 /*==================================================
@@ -938,8 +937,8 @@ bookingForm.addEventListener(
         successDetails.textContent =
             `${selectedService.value} • ${formatDate(selectedDate)} • ${formatTime(selectedTime)} • R${price}`;
 
-      /*==================================================
-  WHATSAPP NOTIFICATION
+/*==================================================
+  OPEN WHATSAPP AFTER SUCCESSFUL DATABASE BOOKING
 ==================================================*/
 
 const whatsappNumber =
@@ -950,62 +949,87 @@ const whatsappMessage =
 `🔔 NEW ARMANDO'S BARBER BOOKING
 
 Customer: ${customerName}
-
 Service: ${selectedService.value}
-
 Date: ${formatDate(selectedDate)}
-
 Time: ${formatTime(selectedTime)}
-
 Phone: ${customerPhone}
+Price: R${price}
 
-Price: R${price}`;
+Hi Armando's Barber, I have just booked an appointment.`;
 
 
-whatsappNotify.href =
+const whatsappURL =
     `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
 
-        successModal.classList.add(
-            "show"
-        );
+/*
+  Save the success information so it can
+  be shown when the customer returns.
+*/
+
+sessionStorage.setItem(
+    "armandoBookingSuccess",
+    "true"
+);
+
+sessionStorage.setItem(
+    "armandoBookingDetails",
+    `${selectedService.value} • ${formatDate(selectedDate)} • ${formatTime(selectedTime)} • R${price}`
+);
 
 
-        bookingForm.reset();
+/*
+  Open WhatsApp.
+*/
 
-        bookingTime.value = "";
-
-
-        summaryService.textContent =
-            "Not selected";
-
-        summaryDate.textContent =
-            "Not selected";
-
-        summaryTime.textContent =
-            "Not selected";
-
-        summaryPrice.textContent =
-            "R0";
+window.location.href =
+    whatsappURL;
 
 
-        timeSlots.innerHTML = `
-            <div class="empty-slots">
 
-                <i class="fa-regular fa-clock"></i>
+  /*==================================================
+  SHOW SUCCESS AFTER RETURNING FROM WHATSAPP
+==================================================*/
 
-                <p>
-                    Select a date to see available times.
-                </p>
+window.addEventListener(
+    "pageshow",
+    function(){
 
-            </div>
-        `;
+        const bookingSuccess =
+            sessionStorage.getItem(
+                "armandoBookingSuccess"
+            );
 
 
-        dateMessage.textContent = "";
+        if(
+            bookingSuccess === "true"
+        ){
+
+            const details =
+                sessionStorage.getItem(
+                    "armandoBookingDetails"
+                );
 
 
-        resetConfirmButton();
+            successDetails.textContent =
+                details ||
+                "Your appointment has been successfully booked.";
+
+
+            successModal.classList.add(
+                "show"
+            );
+
+
+            sessionStorage.removeItem(
+                "armandoBookingSuccess"
+            );
+
+            sessionStorage.removeItem(
+                "armandoBookingDetails"
+            );
+
+        }
 
     }
 );
