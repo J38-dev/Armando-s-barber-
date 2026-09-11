@@ -128,6 +128,9 @@ const successModal =
 const successDetails =
     document.getElementById("successDetails");
 
+  const whatsappNotify =
+    document.getElementById("whatsappNotify");
+
 
 /*==================================================
   SET MINIMUM DATE
@@ -934,6 +937,33 @@ bookingForm.addEventListener(
 
         successDetails.textContent =
             `${selectedService.value} • ${formatDate(selectedDate)} • ${formatTime(selectedTime)} • R${price}`;
+
+      /*==================================================
+  WHATSAPP NOTIFICATION
+==================================================*/
+
+const whatsappNumber =
+    "27694028390";
+
+
+const whatsappMessage =
+`🔔 NEW ARMANDO'S BARBER BOOKING
+
+Customer: ${customerName}
+
+Service: ${selectedService.value}
+
+Date: ${formatDate(selectedDate)}
+
+Time: ${formatTime(selectedTime)}
+
+Phone: ${customerPhone}
+
+Price: R${price}`;
+
+
+whatsappNotify.href =
+    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
 
         successModal.classList.add(
