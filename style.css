@@ -2463,3 +2463,53 @@ PAYMENT DETAILS
     }
 
               }
+
+
+  /* ==========================================
+   HOMEPAGE BOOKING BUTTON FIX
+========================================== */
+
+.booking-btn {
+    color: #050505 !important;
+    background: #f5c518 !important;
+    width: 100%;
+    max-width: 320px;
+    min-height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-decoration: none !important;
+    border: 2px solid #f5c518;
+}
+
+.booking-btn:hover {
+    color: #050505 !important;
+    background: #ffffff !important;
+}
+
+
+/* ==========================================
+   FINAL CTA BOOK NOW BUTTON
+========================================== */
+
+.cta a {
+    color: #050505 !important;
+    background: #f5c518 !important;
+    width: 100%;
+    max-width: 320px;
+    min-height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    border: 2px solid #f5c518;
+    text-transform: uppercase;
+}
+
+.cta a:hover {
+    color: #050505 !important;
+    background: #ffffff !important;
+  }
