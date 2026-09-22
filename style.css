@@ -2629,3 +2629,19 @@ PAYMENT DETAILS
     }
 
   }
+
+
+.map-section{
+    padding:0 22px 45px;
+}
+
+.map-section h2{
+    font-family:var(--heading);
+    font-size:46px;
+    margin-bottom:25px;
+    line-height:1;
+}
+
+.map-section h2 span{
+    color:var(--yellow);
+  }
