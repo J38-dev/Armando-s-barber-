@@ -1,24 +1,15 @@
 /*==================================================
   ARMANDO'S BARBER
-  SUPABASE BOOKING SYSTEM
+  GOOGLE SHEETS BOOKING SYSTEM
 ==================================================*/
 
 
 /*==================================================
-  SUPABASE CONNECTION
+  GOOGLE APPS SCRIPT CONNECTION
 ==================================================*/
 
-const SUPABASE_URL =
-    "https://yuvorzvhnjsycmigueom.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_4oNuPNPr7a8e5mrTg7xgQA_rG4vK8Df";
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+const API_URL =
+    "https://script.google.com/macros/s/AKfycbxgzoF8GAGcN9uT4fju5eSVCokmpghyQw0cmvMnntmZX889vJaWNfhR5rIuabl7MDUF/exec";
 
 
 /*==================================================
@@ -26,23 +17,14 @@ const supabaseClient =
 ==================================================*/
 
 const SERVICES = {
-
     "Classic Haircut": 100,
-
     "Fade": 120,
-
     "Haircut & Beard": 150,
-
     "Beard Trim": 70,
-
     "Line-Up": 60,
-
     "Kids Haircut": 80,
-
     "Haircut & Wash": 140,
-
     "Full Grooming": 180
-
 };
 
 
@@ -51,37 +33,12 @@ const SERVICES = {
 ==================================================*/
 
 const OPENING_HOURS = {
-
-    1: {
-        open: "08:00",
-        close: "17:00"
-    },
-
-    2: {
-        open: "08:00",
-        close: "17:00"
-    },
-
-    3: {
-        open: "08:00",
-        close: "17:00"
-    },
-
-    4: {
-        open: "08:00",
-        close: "17:00"
-    },
-
-    5: {
-        open: "08:00",
-        close: "17:00"
-    },
-
-    6: {
-        open: "08:00",
-        close: "14:00"
-    }
-
+    1: { open: "08:00", close: "17:00" },
+    2: { open: "08:00", close: "17:00" },
+    3: { open: "08:00", close: "17:00" },
+    4: { open: "08:00", close: "17:00" },
+    5: { open: "08:00", close: "17:00" },
+    6: { open: "08:00", close: "14:00" }
 };
 
 
@@ -128,70 +85,66 @@ const successModal =
 const successDetails =
     document.getElementById("successDetails");
 
-  
-
 
 /*==================================================
   SET MINIMUM DATE
 ==================================================*/
 
-function setMinimumDate(){
+function setMinimumDate() {
+    const now = new Date();
 
-    const today = new Date();
+    const year = now.getFullYear();
 
-    const year =
-        today.getFullYear();
+    const month = String(
+        now.getMonth() + 1
+    ).padStart(2, "0");
 
-    const month =
-        String(today.getMonth() + 1)
-        .padStart(2, "0");
-
-    const day =
-        String(today.getDate())
-        .padStart(2, "0");
+    const day = String(
+        now.getDate()
+    ).padStart(2, "0");
 
     bookingDate.min =
         `${year}-${month}-${day}`;
-
 }
-
 
 setMinimumDate();
 
 
 /*==================================================
-  GET DAY OF WEEK
+  DATE HELPERS
 ==================================================*/
 
-function getDayNumber(dateString){
-
-    const date =
-        new Date(`${dateString}T12:00:00`);
-
-    return date.getDay();
-
+function getDayNumber(dateString) {
+    return new Date(
+        `${dateString}T12:00:00`
+    ).getDay();
 }
 
 
-/*==================================================
-  FORMAT DATE
-==================================================*/
+function formatDate(dateString) {
+    return new Date(
+        `${dateString}T12:00:00`
+    ).toLocaleDateString("en-ZA", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+}
 
-function formatDate(dateString){
 
-    const date =
-        new Date(`${dateString}T12:00:00`);
+function formatTime(time) {
+    const [hourString, minute] =
+        time.split(":");
 
-    return date.toLocaleDateString(
-        "en-ZA",
-        {
-            weekday:"long",
-            day:"numeric",
-            month:"long",
-            year:"numeric"
-        }
-    );
+    let hour = Number(hourString);
 
+    const suffix =
+        hour >= 12 ? "PM" : "AM";
+
+    hour = hour % 12 || 12;
+
+    return `${hour}:${minute} ${suffix}`;
 }
 
 
@@ -199,8 +152,7 @@ function formatDate(dateString){
   GENERATE TIME SLOTS
 ==================================================*/
 
-function generateTimeSlots(open, close){
-
+function generateTimeSlots(open, close) {
     const slots = [];
 
     let [hour, minute] =
@@ -209,57 +161,171 @@ function generateTimeSlots(open, close){
     const [closeHour, closeMinute] =
         close.split(":").map(Number);
 
-
-    while(
+    while (
         hour < closeHour ||
         (
             hour === closeHour &&
             minute < closeMinute
         )
-    ){
-
+    ) {
         const time =
-            `${String(hour).padStart(2,"0")}:${String(minute).padStart(2,"0")}`;
+            `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
 
         slots.push(time);
 
         minute += 30;
 
-        if(minute >= 60){
-
-            hour += 1;
-
+        if (minute >= 60) {
+            hour++;
             minute -= 60;
-
         }
-
     }
 
     return slots;
-
 }
 
 
 /*==================================================
-  FORMAT TIME
+  GOOGLE SHEETS API REQUEST
 ==================================================*/
 
-function formatTime(time){
+async function apiGet(action, parameters = {}) {
+    const url = new URL(API_URL);
 
-    const [hourString, minute] =
-        time.split(":");
+    url.searchParams.set("action", action);
 
-    let hour =
-        Number(hourString);
+    Object.entries(parameters).forEach(
+        ([key, value]) => {
+            url.searchParams.set(key, value);
+        }
+    );
 
-    const suffix =
-        hour >= 12 ? "PM" : "AM";
+    const response = await fetch(url.toString(), {
+        method: "GET",
+        redirect: "follow",
+        cache: "no-store"
+    });
 
-    hour =
-        hour % 12 || 12;
+    if (!response.ok) {
+        throw new Error(
+            "The booking server could not be reached."
+        );
+    }
 
-    return `${hour}:${minute} ${suffix}`;
+    return response.json();
+}
 
+
+/*==================================================
+  CHECK AVAILABILITY FROM GOOGLE SHEETS
+==================================================*/
+
+async function loadAvailableTimes(
+    selectedDate,
+    open,
+    close
+) {
+    timeSlots.innerHTML = `
+        <div class="empty-slots">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <p>Checking available times...</p>
+        </div>
+    `;
+
+    try {
+        const result = await apiGet(
+            "availability",
+            { date: selectedDate }
+        );
+
+        if (!result.success) {
+            throw new Error(
+                result.error ||
+                "Unable to check availability."
+            );
+        }
+
+        if (result.closed) {
+            dateMessage.textContent =
+                "Armando's Barber is closed on this date.";
+
+            timeSlots.innerHTML = `
+                <div class="empty-slots">
+                    <i class="fa-solid fa-store-slash"></i>
+                    <p>We are closed on this date.</p>
+                </div>
+            `;
+
+            return;
+        }
+
+        const bookedTimes = new Set(
+            result.bookedTimes || []
+        );
+
+        const slots =
+            generateTimeSlots(open, close);
+
+        timeSlots.innerHTML = "";
+
+        let availableCount = 0;
+
+        slots.forEach(time => {
+            const button =
+                document.createElement("button");
+
+            button.type = "button";
+            button.className = "time-slot";
+            button.textContent = formatTime(time);
+
+            if (bookedTimes.has(time)) {
+                button.classList.add("booked");
+                button.disabled = true;
+
+                button.title =
+                    "This time is already booked";
+            } else {
+                availableCount++;
+
+                button.addEventListener(
+                    "click",
+                    function() {
+                        selectTime(time, button);
+                    }
+                );
+            }
+
+            timeSlots.appendChild(button);
+        });
+
+        if (availableCount === 0) {
+            timeSlots.innerHTML = `
+                <div class="empty-slots">
+                    <i class="fa-solid fa-calendar-xmark"></i>
+                    <p>
+                        There are no available appointments
+                        on this date.
+                    </p>
+                </div>
+            `;
+        }
+
+    } catch (error) {
+        console.error(
+            "Availability error:",
+            error
+        );
+
+        timeSlots.innerHTML = `
+            <div class="empty-slots">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <p>
+                    We couldn't check availability.
+                    Please refresh the page and try again.
+                </p>
+            </div>
+        `;
+    }
 }
 
 
@@ -269,272 +335,94 @@ function formatTime(time){
 
 bookingDate.addEventListener(
     "change",
-    async function(){
-
-        const selectedDate =
-            bookingDate.value;
+    async function() {
+        const selectedDate = bookingDate.value;
 
         bookingTime.value = "";
 
-        summaryDate.textContent =
-            "Not selected";
-
-        summaryTime.textContent =
-            "Not selected";
+        summaryDate.textContent = "Not selected";
+        summaryTime.textContent = "Not selected";
 
         timeSlots.innerHTML = "";
 
         bookingMessage.textContent = "";
+        bookingMessage.className = "booking-message";
 
-        bookingMessage.className =
-            "booking-message";
-
-
-        if(!selectedDate){
-
+        if (!selectedDate) {
+            dateMessage.textContent = "";
             return;
-
         }
 
+        if (selectedDate < bookingDate.min) {
+            dateMessage.textContent =
+                "Please choose today or a future date.";
 
-        const day =
-            getDayNumber(selectedDate);
+            return;
+        }
 
+        const day = getDayNumber(selectedDate);
 
-        /* SUNDAY */
-
-        if(day === 0){
-
+        if (day === 0) {
             dateMessage.textContent =
                 "Armando's Barber is closed on Sundays.";
 
             timeSlots.innerHTML = `
                 <div class="empty-slots">
-
                     <i class="fa-solid fa-store-slash"></i>
-
                     <p>
                         We are closed on Sundays.
                         Please choose another date.
                     </p>
-
                 </div>
             `;
 
             return;
-
         }
 
+        const hours = OPENING_HOURS[day];
 
-        /* CHECK OPENING HOURS */
-
-        const hours =
-            OPENING_HOURS[day];
-
-
-        if(!hours){
-
+        if (!hours) {
             dateMessage.textContent =
                 "This day is unavailable.";
 
             return;
-
         }
-
 
         dateMessage.textContent =
             `${formatDate(selectedDate)} • ${formatTime(hours.open)} – ${formatTime(hours.close)}`;
 
-
         summaryDate.textContent =
             formatDate(selectedDate);
-
 
         await loadAvailableTimes(
             selectedDate,
             hours.open,
             hours.close
         );
-
     }
 );
-
-
-/*==================================================
-  LOAD AVAILABLE TIMES
-==================================================*/
-
-async function loadAvailableTimes(
-    selectedDate,
-    open,
-    close
-){
-
-    timeSlots.innerHTML = `
-        <div class="empty-slots">
-
-            <i class="fa-solid fa-spinner fa-spin"></i>
-
-            <p>
-                Checking available times...
-            </p>
-
-        </div>
-    `;
-
-
-    const { data, error } =
-        await supabaseClient
-            .from("bookings")
-            .select("booking_time")
-            .eq("booking_date", selectedDate)
-            .eq("status", "confirmed");
-
-
-    if(error){
-
-        console.error(error);
-
-        timeSlots.innerHTML = `
-            <div class="empty-slots">
-
-                <i class="fa-solid fa-triangle-exclamation"></i>
-
-                <p>
-                    We couldn't load the available times.
-                    Please try again.
-                </p>
-
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    const bookedTimes =
-        new Set(
-            data.map(
-                booking =>
-                    booking.booking_time.substring(0,5)
-            )
-        );
-
-
-    const slots =
-        generateTimeSlots(open, close);
-
-
-    timeSlots.innerHTML = "";
-
-
-    let availableCount = 0;
-
-
-    slots.forEach(time => {
-
-        const button =
-            document.createElement("button");
-
-        button.type =
-            "button";
-
-        button.className =
-            "time-slot";
-
-        button.textContent =
-            formatTime(time);
-
-
-        if(bookedTimes.has(time)){
-
-            button.classList.add("booked");
-
-            button.disabled = true;
-
-            button.title =
-                "This time is already booked";
-
-        }else{
-
-            availableCount++;
-
-
-            button.addEventListener(
-                "click",
-                function(){
-
-                    selectTime(
-                        time,
-                        button
-                    );
-
-                }
-            );
-
-        }
-
-
-        timeSlots.appendChild(button);
-
-    });
-
-
-    if(availableCount === 0){
-
-        timeSlots.innerHTML = `
-            <div class="empty-slots">
-
-                <i class="fa-solid fa-calendar-xmark"></i>
-
-                <p>
-                    There are no available appointments
-                    on this date.
-                </p>
-
-            </div>
-        `;
-
-    }
-
-}
 
 
 /*==================================================
   SELECT TIME
 ==================================================*/
 
-function selectTime(
-    time,
-    selectedButton
-){
-
+function selectTime(time, selectedButton) {
     document
         .querySelectorAll(".time-slot")
         .forEach(button => {
-
             button.classList.remove("selected");
-
         });
-
 
     selectedButton.classList.add("selected");
 
-
-    bookingTime.value =
-        time;
-
+    bookingTime.value = time;
 
     summaryTime.textContent =
         formatTime(time);
 
-
     bookingMessage.textContent = "";
-
-    bookingMessage.className =
-        "booking-message";
-
+    bookingMessage.className = "booking-message";
 }
 
 
@@ -543,38 +431,22 @@ function selectTime(
 ==================================================*/
 
 document
-    .querySelectorAll(
-        'input[name="service"]'
-    )
+    .querySelectorAll('input[name="service"]')
     .forEach(input => {
-
         input.addEventListener(
             "change",
-            function(){
+            function() {
+                const service = this.value;
 
-                const service =
-                    this.value;
-
-                const price =
-                    SERVICES[service];
-
-
-                summaryService.textContent =
-                    service;
-
+                summaryService.textContent = service;
 
                 summaryPrice.textContent =
-                    `R${price}`;
-
+                    `R${SERVICES[service]}`;
 
                 bookingMessage.textContent = "";
-
-                bookingMessage.className =
-                    "booking-message";
-
+                bookingMessage.className = "booking-message";
             }
         );
-
     });
 
 
@@ -585,14 +457,11 @@ document
 function showMessage(
     message,
     type = "error"
-){
-
-    bookingMessage.textContent =
-        message;
+) {
+    bookingMessage.textContent = message;
 
     bookingMessage.className =
         `booking-message ${type}`;
-
 }
 
 
@@ -600,15 +469,66 @@ function showMessage(
   VALIDATE PHONE
 ==================================================*/
 
-function validPhone(phone){
-
+function validPhone(phone) {
     const cleaned =
         phone.replace(/\s+/g, "");
 
-    return /^(\+27|0)[0-9]{9}$/.test(
-        cleaned
-    );
+    return /^(\+27|0)[0-9]{9}$/.test(cleaned);
+}
 
+
+/*==================================================
+  RESET SUBMIT BUTTON
+==================================================*/
+
+function resetConfirmButton() {
+    confirmBooking.disabled = false;
+
+    confirmBooking.innerHTML = `
+        CONFIRM APPOINTMENT
+        <i class="fa-solid fa-arrow-right"></i>
+    `;
+}
+
+
+/*==================================================
+  SAVE BOOKING TO GOOGLE SHEETS
+==================================================*/
+
+async function saveBooking(booking) {
+    const response = await fetch(API_URL, {
+        method: "POST",
+        redirect: "follow",
+
+        /*
+         * text/plain avoids the browser's JSON
+         * content-type preflight request.
+         *
+         * The Apps Script reads the request body
+         * and parses its JSON contents.
+         */
+
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
+
+        body: JSON.stringify({
+            action: "book",
+            customerName: booking.customerName,
+            phone: booking.phone,
+            service: booking.service,
+            date: booking.date,
+            time: booking.time
+        })
+    });
+
+    if (!response.ok) {
+        throw new Error(
+            "The booking server returned an error."
+        );
+    }
+
+    return response.json();
 }
 
 
@@ -618,65 +538,53 @@ function validPhone(phone){
 
 bookingForm.addEventListener(
     "submit",
-    async function(event){
-
+    async function(event) {
         event.preventDefault();
 
-
-        /* SERVICE */
+        if (confirmBooking.disabled) {
+            return;
+        }
 
         const selectedService =
             document.querySelector(
                 'input[name="service"]:checked'
             );
 
-
-        if(!selectedService){
-
+        if (!selectedService) {
             showMessage(
                 "Please select a service."
             );
 
             return;
-
         }
 
+        const selectedDate = bookingDate.value;
 
-        /* DATE */
-
-        const selectedDate =
-            bookingDate.value;
-
-
-        if(!selectedDate){
-
+        if (!selectedDate) {
             showMessage(
                 "Please select an appointment date."
             );
 
             return;
-
         }
 
+        if (selectedDate < bookingDate.min) {
+            showMessage(
+                "Please choose today or a future date."
+            );
 
-        /* TIME */
+            return;
+        }
 
-        const selectedTime =
-            bookingTime.value;
+        const selectedTime = bookingTime.value;
 
-
-        if(!selectedTime){
-
+        if (!selectedTime) {
             showMessage(
                 "Please select an available time."
             );
 
             return;
-
         }
-
-
-        /* CUSTOMER */
 
         const customerName =
             document
@@ -684,67 +592,63 @@ bookingForm.addEventListener(
                 .value
                 .trim();
 
-
         const customerPhone =
             document
                 .getElementById("customerPhone")
                 .value
                 .trim();
 
-
-        const customerEmail =
-            document
-                .getElementById("customerEmail")
-                .value
-                .trim();
-
-
-        if(!customerName){
-
+        if (!customerName || customerName.length > 100) {
             showMessage(
-                "Please enter your full name."
+                "Please enter a valid full name."
             );
 
             return;
-
         }
 
-
-        if(!validPhone(customerPhone)){
-
+        if (!validPhone(customerPhone)) {
             showMessage(
                 "Please enter a valid South African phone number."
             );
 
             return;
-
         }
 
+        const day = getDayNumber(selectedDate);
 
-        /* CHECK DAY */
-
-        const day =
-            getDayNumber(selectedDate);
-
-
-        if(day === 0){
-
+        if (day === 0 || !OPENING_HOURS[day]) {
             showMessage(
-                "Armando's Barber is closed on Sundays."
+                "Armando's Barber is closed on this date."
             );
 
             return;
-
         }
 
+        const hours = OPENING_HOURS[day];
 
-        /* PRICE */
+        if (
+            selectedTime < hours.open ||
+            selectedTime >= hours.close
+        ) {
+            showMessage(
+                "Please select a time within opening hours."
+            );
 
-        const price =
-            SERVICES[selectedService.value];
+            return;
+        }
 
+        if (
+            !/^([01]\d|2[0-3]):[0-5]\d$/.test(selectedTime) ||
+            Number(selectedTime.slice(3, 5)) % 30 !== 0
+        ) {
+            showMessage(
+                "Please select a valid appointment time."
+            );
 
-        /* DISABLE BUTTON */
+            return;
+        }
+
+        const price = SERVICES[selectedService.value];
 
         confirmBooking.disabled = true;
 
@@ -753,209 +657,67 @@ bookingForm.addEventListener(
             SAVING APPOINTMENT...
         `;
 
-
         showMessage(
-            "Checking the appointment...",
+            "Saving your appointment...",
             "success"
         );
 
-
-        /*==================================================
-          FINAL DOUBLE-BOOKING CHECK
-        ==================================================*/
-
-        const {
-            data: existingBooking,
-            error: checkError
-        } =
-            await supabaseClient
-                .from("bookings")
-                .select("id")
-                .eq(
-                    "booking_date",
-                    selectedDate
-                )
-                .eq(
-                    "booking_time",
-                    selectedTime
-                )
-                .eq(
-                    "status",
-                    "confirmed"
-                )
-                .maybeSingle();
-
-
-        if(checkError){
-
-            console.error(checkError);
-
-            showMessage(
-                "We couldn't verify that time. Please try again."
-            );
-
-            resetConfirmButton();
-
-            return;
-
-        }
-
-
-        if(existingBooking){
-
-            showMessage(
-                "Sorry, that appointment was just booked by someone else. Please choose another time."
-            );
-
-            bookingTime.value = "";
-
-            summaryTime.textContent =
-                "Not selected";
-
-
-            await loadAvailableTimes(
-                selectedDate,
-                OPENING_HOURS[day].open,
-                OPENING_HOURS[day].close
-            );
-
-
-            resetConfirmButton();
-
-            return;
-
-        }
-
-
-        /*==================================================
-          SAVE BOOKING
-        ==================================================*/
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .from("bookings")
-                .insert({
-
-                    customer_name:
-                        customerName,
-
-                    customer_phone:
-                        customerPhone,
-
-                    customer_email:
-                        customerEmail || null,
-
-                    service:
-                        selectedService.value,
-
-                    booking_date:
-                        selectedDate,
-
-                    booking_time:
-                        selectedTime,
-
-                    price:
-                        price,
-
-                    status:
-                        "confirmed"
-
-                })
-                .select()
-                .single();
-
-
-        /*==================================================
-          DATABASE DOUBLE-BOOKING PROTECTION
-        ==================================================*/
-
-        if(error){
-
-            console.error(error);
-
-
+        try {
             /*
-              PostgreSQL unique constraint
-              catches another booking made
-              at the same moment.
-            */
+             * The server checks availability again
+             * while holding a lock before saving.
+             */
 
-            if(
-                error.code === "23505"
-            ){
+            const result = await saveBooking({
+                customerName: customerName,
+                phone: customerPhone,
+                service: selectedService.value,
+                date: selectedDate,
+                time: selectedTime
+            });
+
+            if (!result.success) {
+                if (result.code === "SLOT_TAKEN") {
+                    bookingTime.value = "";
+
+                    summaryTime.textContent =
+                        "Not selected";
+
+                    showMessage(
+                        "Sorry, this time has just been booked. Please select another time."
+                    );
+
+                    await loadAvailableTimes(
+                        selectedDate,
+                        hours.open,
+                        hours.close
+                    );
+
+                    return;
+                }
 
                 showMessage(
-                    "Sorry, that time was just booked. Please choose another available time."
+                    result.error ||
+                    "Your booking could not be saved. Please try again."
                 );
-
-
-                bookingTime.value = "";
-
-                summaryTime.textContent =
-                    "Not selected";
-
-
-                await loadAvailableTimes(
-                    selectedDate,
-                    OPENING_HOURS[day].open,
-                    OPENING_HOURS[day].close
-                );
-
-
-                resetConfirmButton();
 
                 return;
-
             }
 
+            /*
+             * Only continue after the API confirms
+             * that the booking was saved.
+             */
 
-            showMessage(
-                "Something went wrong while saving your appointment. Please try again."
-            );
+            const bookingDetails =
+                `${selectedService.value} • ${formatDate(selectedDate)} • ${formatTime(selectedTime)} • R${price}`;
 
+            const whatsappNumber = "27694028390";
 
-            resetConfirmButton();
-
-            return;
-
-        }
-
-
-        /*==================================================
-          SUCCESS
-        ==================================================*/
-
-        /*==================================================
-  SUCCESS
-==================================================*/
-
-console.log(
-    "Booking created:",
-    data
-);
-
-
-/*==================================================
-  SAVE SUCCESS DETAILS
-==================================================*/
-
-const bookingDetails =
-    `${selectedService.value} • ${formatDate(selectedDate)} • ${formatTime(selectedTime)} • R${price}`;
-
-
-/*==================================================
-  PREPARE WHATSAPP
-==================================================*/
-
-const whatsappNumber =
-    "27694028390";
-
-const whatsappMessage =
+            const whatsappMessage =
 `🔔 NEW ARMANDO'S BARBER BOOKING
 
+Booking ID: ${result.bookingId}
 Customer: ${customerName}
 Service: ${selectedService.value}
 Date: ${formatDate(selectedDate)}
@@ -965,77 +727,62 @@ Price: R${price}
 
 Hi Armando's Barber, I have just booked an appointment.`;
 
-const whatsappURL =
-    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+            const whatsappURL =
+                `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
+            sessionStorage.setItem(
+                "armandoBookingSuccess",
+                "true"
+            );
 
-/*==================================================
-  SAVE SUCCESS STATE
-==================================================*/
+            sessionStorage.setItem(
+                "armandoBookingDetails",
+                bookingDetails
+            );
 
-sessionStorage.setItem(
-    "armandoBookingSuccess",
-    "true"
+            window.location.href = whatsappURL;
+
+        } catch (error) {
+            console.error(
+                "Booking submission error:",
+                error
+            );
+
+            showMessage(
+                "We couldn't confirm the booking response. Please check the booking sheet before trying again, to avoid creating a duplicate appointment."
+            );
+
+        } finally {
+            resetConfirmButton();
+        }
+    }
 );
-
-sessionStorage.setItem(
-    "armandoBookingDetails",
-    bookingDetails
-);
-
-
-/*==================================================
-  OPEN WHATSAPP
-==================================================*/
-
-window.location.href =
-    whatsappURL;
-
-
-/*
-  Stop this submit function here.
-  The customer will return from WhatsApp
-  and the success screen will then appear.
-*/
-
-return;
-
-});
 
 
 /*==================================================
   SHOW SUCCESS AFTER RETURNING FROM WHATSAPP
 ==================================================*/
 
-function showBookingSuccess(){
-
+function showBookingSuccess() {
     const bookingSuccess =
         sessionStorage.getItem(
             "armandoBookingSuccess"
         );
 
-    if(
-        bookingSuccess !== "true"
-    ){
+    if (bookingSuccess !== "true") {
         return;
     }
-
 
     const details =
         sessionStorage.getItem(
             "armandoBookingDetails"
         );
 
-
     successDetails.textContent =
         details ||
         "Your appointment has been successfully booked.";
 
-
-    successModal.classList.add(
-        "show"
-    );
-
+    successModal.classList.add("show");
 
     sessionStorage.removeItem(
         "armandoBookingSuccess"
@@ -1044,7 +791,6 @@ function showBookingSuccess(){
     sessionStorage.removeItem(
         "armandoBookingDetails"
     );
-
 }
 
 
@@ -1054,80 +800,48 @@ function showBookingSuccess(){
 
 window.addEventListener(
     "pageshow",
-    function(){
-
-        showBookingSuccess();
-
-    }
+    showBookingSuccess
 );
-
-
-/*==================================================
-  ALSO CHECK WHEN PAGE BECOMES VISIBLE AGAIN
-==================================================*/
 
 document.addEventListener(
     "visibilitychange",
-    function(){
-
-        if(!document.hidden){
-
+    function() {
+        if (!document.hidden) {
             showBookingSuccess();
-
         }
-
     }
 );
 
 
 /*==================================================
-  RESET BUTTON
-==================================================*/
-
-function resetConfirmButton(){
-
-    confirmBooking.disabled =
-        false;
-
-    confirmBooking.innerHTML = `
-        CONFIRM APPOINTMENT
-        <i class="fa-solid fa-arrow-right"></i>
-    `;
-
-}
-
-
-/*==================================================
-  PREVENT PAST DATE MANUALLY
+  PREVENT PAST DATES
 ==================================================*/
 
 bookingDate.addEventListener(
     "input",
-    function(){
-
-        if(
+    function() {
+        if (
             this.value &&
             this.value < this.min
-        ){
-
+        ) {
             this.value = "";
+
+            bookingTime.value = "";
+
+            summaryDate.textContent = "Not selected";
+            summaryTime.textContent = "Not selected";
 
             dateMessage.textContent =
                 "Please choose today or a future date.";
 
             timeSlots.innerHTML = `
                 <div class="empty-slots">
-
                     <i class="fa-solid fa-calendar-xmark"></i>
-
                     <p>
                         Please choose a valid future date.
                     </p>
-
                 </div>
             `;
-
         }
-
     }
 );
